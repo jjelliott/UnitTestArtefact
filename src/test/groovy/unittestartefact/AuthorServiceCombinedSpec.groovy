@@ -2,14 +2,17 @@ package unittestartefact
 
 import grails.test.hibernate.HibernateSpec
 import grails.testing.services.ServiceUnitTest
+import org.grails.core.artefact.DomainClassArtefactHandler
 
 class AuthorServiceCombinedSpec extends HibernateSpec implements ServiceUnitTest<AuthorService> {
 
     @Override
     List<Class> getDomainClasses() {
-        [
+        def list = [
                 Author, Book, Page
         ]
+        list.each {grailsApplication.addArtefact(DomainClassArtefactHandler.TYPE, it)}
+        return list
     }
 
     def setup() {
